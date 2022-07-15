@@ -7,9 +7,11 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {gapSize} from '../../utils/constants';
-
-const CardMood = ({data}) => {
+import { gapSize, subtitleStyle, titleStyle } from '../../utils/constants';
+import Feather from 'react-native-vector-icons/Feather'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { moderateScale } from 'react-native-size-matters';
+const CardMood = ({ data }) => {
   return (
     <View
       style={{
@@ -23,19 +25,28 @@ const CardMood = ({data}) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          paddingHorizontal: gapSize
         }}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text>Icon</Text>
-          <Text>Mood</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Feather name="smile" size={moderateScale(20)} style={{ marginRight: gapSize / 2 }} />
+          <Text style={titleStyle}>Mood</Text>
         </View>
-        <Text>{`See History >`}</Text>
+        <TouchableOpacity onPress={() => { }} style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+          <Text style={[titleStyle, { color: 'orange', fontSize: subtitleStyle.fontSize }]}>
+            See History
+          </Text>
+          <MaterialCommunityIcons name="chevron-right" size={moderateScale(20)} color="orange" style={{ alignSelf: 'center' }} />
+        </TouchableOpacity>
       </View>
-      <Text>How are you feeling?</Text>
+      <Text style={[titleStyle, {
+        padding: gapSize
+      }]}>How are you feeling?</Text>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {data?.map((item, index) => {
           return (
             <TouchableOpacity
+              key={index}
               onPress={() =>
                 Alert.alert('Hello', `You're feeling ${item.type}`, [
                   {
@@ -63,7 +74,7 @@ const CardMood = ({data}) => {
                 }}>
                 <Text>{item.icon}</Text>
               </View>
-              <Text>{item.type}</Text>
+              <Text style={subtitleStyle}>{item.type}</Text>
             </TouchableOpacity>
           );
         })}

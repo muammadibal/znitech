@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Header } from '../../components'
 
 const Doctor = () => {
   return (
-    <View>
-      <Text>Doctor</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Header />
+    </SafeAreaView>
   )
 }
 

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import {
   gapSize,
@@ -6,8 +6,8 @@ import {
   titleStyle,
   widthSize,
 } from '../../utils/constants';
-import {LineChart} from 'react-native-chart-kit';
-import {moderateScale} from 'react-native-size-matters';
+import { LineChart } from 'react-native-chart-kit';
+import { moderateScale } from 'react-native-size-matters';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -23,14 +23,19 @@ const CardWeight = () => {
       <View
         style={{
           padding: gapSize,
+          flexDirection: 'row', alignItems: 'center',
+          justifyContent: 'space-between'
         }}>
-        <View>
-          <FontAwesome5 name="weight" size={moderateScale(20)} />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <FontAwesome5 name="weight" size={moderateScale(20)} style={{ marginRight: gapSize / 2 }} />
           <Text style={titleStyle}>Weight</Text>
         </View>
-        <View>
-          <Text style={[titleStyle, {color: 'green'}]}>See History {`>`}</Text>
-        </View>
+        <TouchableOpacity onPress={() => { }} style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+          <Text style={[titleStyle, { color: 'green', fontSize: subtitleStyle.fontSize }]}>
+            See History
+          </Text>
+          <MaterialCommunityIcons name="chevron-right" size={moderateScale(20)} color="green" style={{ alignSelf: 'center' }} />
+        </TouchableOpacity>
       </View>
 
       {/* chart */}
@@ -52,7 +57,7 @@ const CardWeight = () => {
             },
           ],
         }}
-        width={widthSize} // from react-native
+        width={widthSize * .9} // from react-native
         height={moderateScale(220)}
         withHorizontalLabels={false}
         yAxisInterval={1} // optional, defaults to 1
@@ -82,8 +87,8 @@ const CardWeight = () => {
       />
       {/* chart */}
 
-      <View style={{flexDirection: 'row', padding: gapSize}}>
-        <Text style={[titleStyle, {fontSize: moderateScale(40)}]}>59</Text>
+      <View style={{ flexDirection: 'row', padding: gapSize }}>
+        <Text style={[titleStyle, { fontSize: moderateScale(40) }]}>59</Text>
         <Text style={titleStyle}>kg</Text>
       </View>
 
@@ -92,16 +97,19 @@ const CardWeight = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: gapSize,
+          paddingHorizontal: gapSize,
+          paddingBottom: gapSize,
         }}>
         <Text style={subtitleStyle}>Updated 2h ago</Text>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => { }}
           style={{
-            width: moderateScale(20),
+            width: moderateScale(30),
             aspectRatio: 1,
             borderRadius: moderateScale(20),
             backgroundColor: 'lightgrey',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}>
           <MaterialCommunityIcons
             name="pencil"

@@ -1,15 +1,16 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import ItemIcon from './ItemIcon';
 
 const BottomTabNavigator = ({ state, descriptors, navigation }) => {
     return (
         <View style={{
             flexDirection: 'row',
-            backgroundColor: 'red',
-            height: 50,
+            height: moderateScale(80),
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            backgroundColor: 'white'
         }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
