@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native';
+import ItemIcon from './ItemIcon';
 
 const BottomTabNavigator = ({ state, descriptors, navigation }) => {
     return (
@@ -42,7 +43,7 @@ const BottomTabNavigator = ({ state, descriptors, navigation }) => {
                 };
 
                 return (
-                    <TouchableOpacity
+                    <ItemIcon
                         key={index}
                         accessibilityRole="button"
                         accessibilityState={isFocused ? { selected: true } : {}}
@@ -50,12 +51,9 @@ const BottomTabNavigator = ({ state, descriptors, navigation }) => {
                         testID={options.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
-                        style={{ flex: 1 }}
-                    >
-                        <Text style={{ color: isFocused ? '#673ab7' : '#222' }}>
-                            {label}
-                        </Text>
-                    </TouchableOpacity>
+                        isFocused={isFocused}
+                        label={label}
+                    />
                 );
             })}
         </View>

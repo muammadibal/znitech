@@ -1,6 +1,8 @@
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { LineChart } from 'react-native-chart-kit';
 
 const mood = [
   {
@@ -40,33 +42,109 @@ const Baby = () => {
           <Text>Anya</Text>
         </View>
       </View>
+
       <View style={{
-        backgroundColor: '#cornsilk',
+        backgroundColor: '#d6fff3',
         marginHorizontal: 16,
         paddingVertical: 16,
         borderRadius: 16
       }}>
-        <View style={{ flexDirection:'row', justifyContent: 'space-between', alignItems:'center' }}>
-          <View style={{ flexDirection:'row', justifyContent: 'space-between' }}>
+        <LineChart
+          data={{
+            labels: ["","Fri", "Sat", "Sun", "Mon", "Tue", "Wed", "Today"],
+            datasets: [
+              {
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ]
+              }
+            ]
+          }}
+          width={Dimensions.get("window").width} // from react-native
+          height={220}
+          withHorizontalLabels={false}
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#d6fff3",
+            backgroundGradientFrom: "#d6fff3",
+            backgroundGradientTo: "#d6fff3",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(27, 124, 97, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(27, 124, 97, ${opacity})`,
+            style: {
+              borderRadius: 16
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "green",
+              fill: 'green'
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+            paddingRight:0
+          }}
+        />
+
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{ fontSize: 40 }}>59</Text>
+          <Text>kg</Text>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+          <Text>Updated 2h ago</Text>
+          <TouchableOpacity>
+            <Text>icon</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={{
+        backgroundColor: '#fff3d6',
+        marginHorizontal: 16,
+        paddingVertical: 16,
+        borderRadius: 16
+      }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>Icon</Text>
             <Text>Mood</Text>
           </View>
-            <Text>{`See History >`}</Text>
+          <Text>{`See History >`}</Text>
         </View>
         <Text>How are you feeling?</Text>
 
         <ScrollView horizontal
           showsHorizontalScrollIndicator={false}>
           {mood.map((item, index) => {
-            return <View style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginLeft: index === 0 ? 16 : 0,
-              marginRight: 16
+            return <TouchableOpacity onPress={() => Alert.alert(
+              'Hello',
+              `You're feeling ${item.type}`,
+              [
+                {
+                  text: 'Bye'
+                },
+                {
+                  text: 'OK'
+                },
+              ])} style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginLeft: index === 0 ? 16 : 0,
+                marginRight: 16
 
-            }}>
+              }}>
               <View style={{
-                backgroundColor: 'ffc300',
+                backgroundColor: '#f9ce5e',
                 height: 50,
                 aspectRatio: 1,
                 borderRadius: 50,
@@ -76,11 +154,10 @@ const Baby = () => {
                 <Text>{item.icon}</Text>
               </View>
               <Text>{item.type}</Text>
-            </View>
+            </TouchableOpacity>
           })}
         </ScrollView>
       </View>
-      <TouchableOpacity onPress={() => Alert.alert('test', 'message')}><Text>PRess</Text></TouchableOpacity>
     </SafeAreaView>
   )
 }
