@@ -42,7 +42,7 @@ const CardMood = ({ data }) => {
         padding: gapSize
       }]}>How are you feeling?</Text>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: gapSize }}>
         {data?.map((item, index) => {
           return (
             <TouchableOpacity
@@ -60,8 +60,7 @@ const CardMood = ({ data }) => {
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginLeft: index === 0 ? 16 : 0,
-                marginRight: 16,
+                marginRight: index === data?.length ? 0 : 16,
               }}>
               <View
                 style={{
@@ -71,6 +70,7 @@ const CardMood = ({ data }) => {
                   borderRadius: 50,
                   alignItems: 'center',
                   justifyContent: 'center',
+                  marginBottom: gapSize / 2
                 }}>
                 <Text>{item.icon}</Text>
               </View>

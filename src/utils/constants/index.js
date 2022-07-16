@@ -21,6 +21,6 @@ export const subtitleStyle = {
 
 export const tertiertitleStyle = {
   fontSize: moderateScale(12),
-  color: '#757575',
-  fontWeight: '200',
+  color: '#494949',
+  fontWeight: '300',
 };

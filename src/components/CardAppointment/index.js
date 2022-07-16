@@ -47,7 +47,7 @@ const CardAppointment = () => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => { }}>
-        <Text style={[tertiertitleStyle, { marginLeft: gapSize }]}>+ 2 more appointments</Text>
+        <Text style={[tertiertitleStyle, { marginLeft: gapSize, }]}>+ 2 more appointments</Text>
       </TouchableOpacity>
     </View>
   );

@@ -52,10 +52,11 @@ const CardHistory = () => {
         height: moderateScale(80)
       }}>
         <Text style={[subtitleStyle, { width: '80%' }]}>Add important notes here...</Text>
-        <Octicons name="log" size={moderateScale(40)} color="#ba257c" style={{
+        <Octicons name="log" size={moderateScale(35)} color="#ba257c" style={{
           transform: [
             { rotate: '180deg' }
-          ]
+          ],
+          alignSelf:'center'
         }} />
       </TouchableOpacity>
     </View>
