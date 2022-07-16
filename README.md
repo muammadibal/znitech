@@ -1,4 +1,5 @@
-# znitech
+# Znitech Test
+Make sure you have development environtment and then run
 
 ## Run steps
 - clone repository
