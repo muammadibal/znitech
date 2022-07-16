@@ -1,167 +1,111 @@
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Alert, ScrollView, Dimensions } from 'react-native'
-import React from 'react'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+import React from 'react';
+
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { LineChart } from 'react-native-chart-kit';
+import { IcSun } from '../../assets';
+import { CardAppointment, CardHistory, CardMood, CardWeight, Gap, Header } from '../../components';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { gapSize, widthSize } from '../../utils/constants';
 
 const mood = [
   {
     icon: '😃',
-    type: 'Joyful'
+    type: 'Joyful',
   },
   {
     icon: '🙂',
-    type: 'Happy'
+    type: 'Happy',
   },
   {
     icon: '😐',
-    type: 'Neutral'
+    type: 'Neutral',
   },
   {
     icon: '😩',
-    type: 'Stress'
+    type: 'Stress',
   },
   {
     icon: '😪',
-    type: 'Sad'
+    type: 'Sad',
   },
   {
     icon: '🤮',
-    type: 'Sick'
+    type: 'Sick',
   },
-]
+];
+
+const renderTabBar = props => (
+  <TabBar
+    {...props}
+    indicatorStyle={{ backgroundColor: 'black' }}
+    style={{ backgroundColor: 'white' }}
+    renderLabel={({ route, focused, color }) => (
+      <Text style={{ color: focused ? 'black' : 'grey', margin: 8 }}>
+        {route.title}
+      </Text>
+    )}
+  />
+);
+
+const Progress = () => <View style={{ flex: 1, backgroundColor: '#eaeaea' }} />;
+
+const Articles = () => <View style={{ flex: 1, backgroundColor: '#eaeaea' }} />;
+
+const Tools = () => (
+  <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <ScrollView>
+      <Gap height={gapSize} />
+      <CardWeight />
+      <Gap height={gapSize} />
+      <CardMood data={mood} />
+      <Gap height={gapSize} />
+      <CardHistory />
+      <Gap height={gapSize} />
+      <CardAppointment />
+      <Gap height={gapSize} />
+    </ScrollView>
+  </View>
+);
+
+const renderScene = SceneMap({
+  first: Progress,
+  second: Articles,
+  third: Tools,
+});
+
 const Baby = () => {
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'first', title: 'Progress' },
+    { key: 'second', title: 'Articles' },
+    { key: 'third', title: 'Tools' },
+  ]);
+
   return (
-    <SafeAreaView>
-      <View style={{ flexDirection: 'row', height: 70, paddingHorizontal: 16, justifyContent: 'space-between', alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row' }}>
-          <FontAwesome name="user-o" size={20} style={{ marginRight: 16 / 2 }} />
-          <FontAwesome name="heart-o" size={20} />
-        </View>
-        <View>
-          <Text>Anya</Text>
-        </View>
-      </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Header />
 
-      <View style={{
-        backgroundColor: '#d6fff3',
-        marginHorizontal: 16,
-        paddingVertical: 16,
-        borderRadius: 16
-      }}>
-        <LineChart
-          data={{
-            labels: ["","Fri", "Sat", "Sun", "Mon", "Tue", "Wed", "Today"],
-            datasets: [
-              {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100
-                ]
-              }
-            ]
-          }}
-          width={Dimensions.get("window").width} // from react-native
-          height={220}
-          withHorizontalLabels={false}
-          yAxisInterval={1} // optional, defaults to 1
-          chartConfig={{
-            backgroundColor: "#d6fff3",
-            backgroundGradientFrom: "#d6fff3",
-            backgroundGradientTo: "#d6fff3",
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(27, 124, 97, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(27, 124, 97, ${opacity})`,
-            style: {
-              borderRadius: 16
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "green",
-              fill: 'green'
-            }
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-            paddingRight:0
-          }}
-        />
-
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={{ fontSize: 40 }}>59</Text>
-          <Text>kg</Text>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
-          <Text>Updated 2h ago</Text>
-          <TouchableOpacity>
-            <Text>icon</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={{
-        backgroundColor: '#fff3d6',
-        marginHorizontal: 16,
-        paddingVertical: 16,
-        borderRadius: 16
-      }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text>Icon</Text>
-            <Text>Mood</Text>
-          </View>
-          <Text>{`See History >`}</Text>
-        </View>
-        <Text>How are you feeling?</Text>
-
-        <ScrollView horizontal
-          showsHorizontalScrollIndicator={false}>
-          {mood.map((item, index) => {
-            return <TouchableOpacity onPress={() => Alert.alert(
-              'Hello',
-              `You're feeling ${item.type}`,
-              [
-                {
-                  text: 'Bye'
-                },
-                {
-                  text: 'OK'
-                },
-              ])} style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginLeft: index === 0 ? 16 : 0,
-                marginRight: 16
-
-              }}>
-              <View style={{
-                backgroundColor: '#f9ce5e',
-                height: 50,
-                aspectRatio: 1,
-                borderRadius: 50,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <Text>{item.icon}</Text>
-              </View>
-              <Text>{item.type}</Text>
-            </TouchableOpacity>
-          })}
-        </ScrollView>
-      </View>
+      <TabView
+        renderTabBar={renderTabBar}
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: widthSize }}
+      />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Baby
+export default Baby;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
